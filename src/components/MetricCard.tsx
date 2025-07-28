@@ -8,7 +8,7 @@ interface MetricCardProps {
   trend: string;
   prediction: string;
   icon: LucideIcon;
-  color: 'blue' | 'red' | 'green' | 'yellow' | 'purple';
+  color: 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'cyan' | 'orange';
   alert: boolean;
   onClick: () => void;
 }
@@ -28,7 +28,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     red: 'border-red-400/50 bg-red-500/10',
     green: 'border-green-400/50 bg-green-500/10',
     yellow: 'border-yellow-400/50 bg-yellow-500/10',
-    purple: 'border-purple-400/50 bg-purple-500/10'
+    purple: 'border-purple-400/50 bg-purple-500/10',
+    cyan: 'border-cyan-400/50 bg-cyan-500/10',
+    orange: 'border-orange-400/50 bg-orange-500/10'
   };
 
   const iconColorVariants = {
@@ -36,7 +38,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     red: 'text-red-400',
     green: 'text-green-400',
     yellow: 'text-yellow-400',
-    purple: 'text-purple-400'
+    purple: 'text-purple-400',
+    cyan: 'text-cyan-400',
+    orange: 'text-orange-400'
   };
 
   return (

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Clock, CheckCircle, Phone, MessageSquare } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, Phone, MessageSquare, Ghost, Package } from 'lucide-react';
 
 interface Alert {
   id: number;
@@ -10,6 +10,8 @@ interface Alert {
   smsStatus: string;
   timestamp: Date;
   severity: 'critical' | 'high' | 'medium';
+  whatsappStatus?: string;
+  priority?: string;
 }
 
 export const CriticalAlertsPanel: React.FC = () => {
@@ -17,29 +19,35 @@ export const CriticalAlertsPanel: React.FC = () => {
     {
       id: 1,
       type: "FRAUD_DETECTED",
-      message: "Esther marked 3 orders paid - ₦0 Moniepoint match",
-      action: "Auto-frozen payouts",
+      message: "Esther marked 3 orders paid - ₦97,500 | Moniepoint: ₦0 received",
+      action: "Payouts auto-frozen",
       smsStatus: "Sent to GM at 10:15 AM",
       timestamp: new Date(Date.now() - 900000), // 15 mins ago
-      severity: "critical"
+      severity: "critical",
+      whatsappStatus: "GM notified",
+      priority: "CRITICAL"
     },
     {
       id: 2,
-      type: "STOCK_PREDICTION",
-      message: "Lagos Shampoo stock critical - 2 days remaining",
-      action: "Auto-SMS sent to suppliers",
+      type: "STOCK_HOARDING",
+      message: "Musa: 6 days no movement | Stock value: ₦82,500",
+      action: "Auto-redistribute initiated",
       smsStatus: "WhatsApp sent to DAs",
       timestamp: new Date(Date.now() - 1800000), // 30 mins ago
-      severity: "high"
+      severity: "high",
+      whatsappStatus: "GM responded",
+      priority: "HIGH"
     },
     {
       id: 3,
-      type: "DA_PERFORMANCE",
-      message: "Musa - 5 days no movement, stock value ₦82,500",
-      action: "Stock redistribution initiated",
+      type: "ZERO_COVERAGE",
+      message: "Kano GRA: 28 orders, 0 active DAs | Revenue loss: ₦420k",
+      action: "Emergency recruitment activated",
       smsStatus: "Call reminder scheduled",
       timestamp: new Date(Date.now() - 3600000), // 1 hour ago
-      severity: "medium"
+      severity: "medium",
+      whatsappStatus: "COO escalated",
+      priority: "URGENT"
     }
   ]);
 
@@ -57,6 +65,15 @@ export const CriticalAlertsPanel: React.FC = () => {
       case 'critical': return <AlertTriangle className="w-5 h-5 text-red-400" />;
       case 'high': return <Clock className="w-5 h-5 text-yellow-400" />;
       case 'medium': return <CheckCircle className="w-5 h-5 text-blue-400" />;
+      default: return <Clock className="w-5 h-5 text-gray-400" />;
+    }
+  };
+
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'FRAUD_DETECTED': return <AlertTriangle className="w-5 h-5 text-red-400" />;
+      case 'STOCK_HOARDING': return <Package className="w-5 h-5 text-yellow-400" />;
+      case 'ZERO_COVERAGE': return <Ghost className="w-5 h-5 text-blue-400" />;
       default: return <Clock className="w-5 h-5 text-gray-400" />;
     }
   };
@@ -89,7 +106,14 @@ export const CriticalAlertsPanel: React.FC = () => {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-3 flex-1">
-                {getSeverityIcon(alert.severity)}
+                <div className="flex items-center space-x-2">
+                  {getTypeIcon(alert.type)}
+                  {alert.priority && (
+                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                      {alert.priority}
+                    </span>
+                  )}
+                </div>
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
                     <span className="text-white font-semibold text-sm">
@@ -103,6 +127,9 @@ export const CriticalAlertsPanel: React.FC = () => {
                   <div className="flex flex-col space-y-1">
                     <span className="text-green-400 text-xs">✓ {alert.action}</span>
                     <span className="text-blue-400 text-xs">📱 {alert.smsStatus}</span>
+                    {alert.whatsappStatus && (
+                      <span className="text-cyan-400 text-xs">💬 {alert.whatsappStatus}</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -122,6 +149,15 @@ export const CriticalAlertsPanel: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+      
+      <div className="mt-6 flex justify-center space-x-4">
+        <button className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg font-bold transition-colors">
+          View All Alerts
+        </button>
+        <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-bold transition-colors">
+          Emergency Escalation
+        </button>
       </div>
       
       <div className="mt-4 pt-4 border-t border-gray-600">
