@@ -230,13 +230,13 @@ export const CommunicationHub: React.FC = () => {
             <div className="border border-gray-600 rounded-lg p-4">
               <h4 className="text-white font-semibold mb-2">Critical Fraud Alert</h4>
               <p className="text-gray-300 text-sm mb-2">If GM doesn't respond within 15 minutes</p>
-              <p className="text-yellow-400 text-sm">→ Auto-escalate to COO via SMS + WhatsApp</p>
+              <p className="text-yellow-400 text-sm">{'->'} Auto-escalate to COO via SMS + WhatsApp</p>
             </div>
             
             <div className="border border-gray-600 rounded-lg p-4">
               <h4 className="text-white font-semibold mb-2">Stock Emergency</h4>
               <p className="text-gray-300 text-sm mb-2">If no action within 1 hour</p>
-              <p className="text-yellow-400 text-sm">→ Call GM directly + Escalate to COO</p>
+              <p className="text-yellow-400 text-sm">{'->'} Call GM directly + Escalate to COO</p>
             </div>
           </div>
           
@@ -244,13 +244,13 @@ export const CommunicationHub: React.FC = () => {
             <div className="border border-gray-600 rounded-lg p-4">
               <h4 className="text-white font-semibold mb-2">DA Performance Issue</h4>
               <p className="text-gray-300 text-sm mb-2">If no response within 2 hours</p>
-              <p className="text-yellow-400 text-sm">→ Auto-redistribute 50% of DA stock</p>
+              <p className="text-yellow-400 text-sm">{'->'} Auto-redistribute 50% of DA stock</p>
             </div>
             
             <div className="border border-gray-600 rounded-lg p-4">
               <h4 className="text-white font-semibold mb-2">System Down</h4>
-              <p className="text-gray-300 text-sm mb-2">If portal offline > 5 minutes</p>
-              <p className="text-red-400 text-sm">→ Emergency SMS to GM + COO + CTO</p>
+              <p className="text-gray-300 text-sm mb-2">If portal offline {'>'} 5 minutes</p>
+              <p className="text-red-400 text-sm">{'->'} Emergency SMS to GM + COO + CTO</p>
             </div>
           </div>
         </div>
